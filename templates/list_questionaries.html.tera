@@ -1,0 +1,10 @@
+{% extends 'base' %}
+
+{% block title %}List of questionaries{% endblock %}
+
+{% block content %}
+    {% for item in questionaries %}
+        <a href="/delete_questionary/{{item.id}}"><h1>{{ item.title }} - {{item.id}}</h1></a>
+        <p>{{ item.description }}</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base' %}
+{% block content %}
+
+
+
+<div class="container mt-5">
+    <h2 class="mb-4"><a href="/questionary/{{id}}/statistics" id="questionaryName">{{ title }}</a></h2>
+
+    {% for question in questions %}
+    <div class="card">
+        <div class="card-body">
+            <!-- Name Radio Buttons -->
+            <div class="form-group">
+                <label for="{{question.id}}">{{question.question}}</label>
+                {% for answer in question.anwers %}
+                <div class="custom-control custom-radio">
+                    <input type="radio" id="nameOption1" name="{{question.id}}" value="{{answer.id}}" class="custom-control-input">
+                    <label class="custom-control-label" for="nameOption1">{{answer.answer}}</label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="mt-4">
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+    </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Add click event listener to the submit button
+    document.getElementById('submitButton').addEventListener('click', function () {
+        // Gather form data
+       var formData = {};
+        
+        // Loop through each card with class 'card'
+        document.querySelectorAll('.card').forEach(function(card) {
+            // Get the label text
+            var label = card.querySelector('label').getAttribute('for');
+            
+            // Get the value of the checked radio button within the card
+            var value = card.querySelector('input:checked').value;
+            
+            // Add the label and value to the formData object
+            formData[label.toLowerCase()] = value;
+        });
+        // Convert the form data to JSON
+        var jsonData = JSON.stringify(formData);
+
+        // Create a FormData object and append the JSON data
+        var form = new FormData();
+        form.append('json', jsonData);
+
+        // Replace 'YOUR_ENDPOINT' with the actual endpoint where you want to send the form data
+        var endpoint = '/questionary/{{id}}';
+
+        // Use the Fetch API to send the form data
+        fetch(endpoint, {
+            method: 'POST',
+            body: form,
+        })
+        .then(data => {
+            console.log('Success:', data);
+            
+            // Redirect to the 'ty_page' after successful submission
+            window.location.href = '{{id}}/ty_page';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            console.error('Error:', error);
+            // Optionally, you can handle errors here
+        });
+    });
+});
+</script>
+{% endblock %}

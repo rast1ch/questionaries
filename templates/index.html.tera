@@ -1,1 +1,15 @@
-Hello world!!!!!!
+{% extends 'base' %}
+
+{%block content%}
+<div class="container">
+        <div class="center-form">
+            <form onsubmit="redirectToId(); return false;">
+                <div class="form-group">
+                    <label for="itemId">Введіть ID опитування:</label>
+                    <input type="text" id="itemId" name="itemId" class="form-control search" required>
+                </div>
+                <button type="submit" class="btn btn-primary search">Go</button>
+            </form>
+        </div>
+</div>
+{%endblock%}

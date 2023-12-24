@@ -1,0 +1,10 @@
+pub mod create_question;
+pub mod create_questionary;
+pub mod delete_questionary;
+pub mod get_question;
+pub mod index;
+pub mod list_questionaries;
+pub mod questionary_statistics;
+pub mod static_mod;
+pub mod submit_questionary;
+pub mod update_questionary;

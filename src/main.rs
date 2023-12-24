@@ -1,45 +1,28 @@
-use rocket::{
-    serde::json::{self},
-    *,
-};
-pub mod models;
-pub mod routes;
+use questions;
+use rocket::{self, launch, routes};
+use rocket_db_pools::Database;
 use rocket_dyn_templates::Template;
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
-
-#[get("/1")]
-fn index2() -> Template {
-    let context: json::Value = json::from_str(r#"{"name": "world"}"#).unwrap();
-    Template::render("index", &context)
-}
-
 #[launch]
-async fn rocket() -> _ {
-    // let pool = PgPoolOptions::new()
-    //     .max_connections(5)
-    //     .connect("postgres://questions:questions@db:5432/questions")
-    //     .await;
-    // let res_ = sqlx::query!(
-    //     "INSERT INTO questionaire (title, description) VALUES ($1, $2)",
-    //     "What is your name?",
-    //     "New questions"
-    // )
-    // .execute(&pool.unwrap())
-    // .await
-    // .unwrap();
-    // println!("res_: {:?}", res_);
+pub async fn rocket() -> _ {
     rocket::build()
         .mount(
-            "/hello",
+            "/",
             routes![
-                index,
-                index2,
-                routes::create_questionary::create_questionary
+                questions::routes::static_mod::style,
+                questions::routes::index::main,
+                questions::routes::create_questionary::create_questionary,
+                questions::routes::list_questionaries::list_questionaries,
+                questions::routes::update_questionary::update_questionary,
+                questions::routes::update_questionary::edit_questionary,
+                questions::routes::delete_questionary::delete_questionary,
+                questions::routes::get_question::get_questionary,
+                questions::routes::submit_questionary::submit_questionary,
+                questions::routes::submit_questionary::ty_page,
+                // questions::routes::get_questionary::get_questionary,
+                questions::routes::questionary_statistics::get_questionary_statistics,
             ],
         )
         .attach(Template::fairing())
+        .attach(questions::db::DbConn::init())
 }

@@ -1,21 +1,18 @@
-use rocket::{
-    form::Form,
-    post,
-    serde::json::{self},
-    FromForm,
-};
+use crate::models::questionary::QuestionaryRepository;
+use crate::{db::DbConn, forms::create_questionary::Questionary};
+use rocket::response::Redirect;
+use rocket::{form::Form, get, post};
 use rocket_dyn_templates::Template;
 
-use crate::models::questions::Question;
-
-#[derive(FromForm)]
-pub struct Questionary {
-    pub name: String,
-    pub questions: Question,
+#[get("/create_questionary")]
+pub fn create_questionary_form() -> Template {
+    Template::render("create_questionary", ())
 }
-
 #[post("/create_questionary", data = "<questionary>")]
-pub fn create_questionary(questionary: Form<Questionary>) -> Template {
-    let context: json::Value = json::from_str(r#"{"name": "world"}"#).unwrap();
-    Template::render("index", &context)
+pub async fn create_questionary(pool: &DbConn, questionary: Form<Questionary<'_>>) -> Redirect {
+    let questionary = questionary.into_inner();
+    QuestionaryRepository::create(questionary, pool)
+        .await
+        .unwrap();
+    Redirect::to("/list_questionaries")
 }

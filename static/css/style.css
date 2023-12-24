@@ -1,0 +1,62 @@
+/* Remove link underline and collor*/
+a:link {
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+}
+/* Remove visited link underline and collor*/
+a:visited {
+    text-decoration: none;
+    color:  #FFFFFF;
+}
+/* Remove mouse over link underline and collor*/
+a:hover {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+/* Remove selected link underline and collor*/
+a:active {
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+}
+header{
+    margin-bottom: 20px !important;
+}
+/*  body { */
+/*     padding: 20px  !important; */
+/* } */
+
+.center-form {
+    text-align: center !important;
+}
+
+.form-group {
+    margin-right: 10px !important;
+}
+.search {
+    display: inline-block !important;
+}
+
+/* Increase the size of the input field */
+#itemId {
+    width: 200px !important;
+}
+
+#questionaryName {
+    color: #000000 !important;
+}
+#questionaryName:* {
+    text-decoration: none !important;
+    color: #000000 !important;
+}
+/* #questionaryName:visited { */
+/*     text-decoration: none; */
+/*     color:  #FFFFFF; */
+/* } */
+/* a:hover { */
+/*     text-decoration: none; */
+/*     color: #FFFFFF; */
+/* } */
+/* a:active { */
+/*     text-decoration: none !important; */
+/*     color: #FFFFFF !important; */
+/* } */

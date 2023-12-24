@@ -1,2 +1,4 @@
 [defaults]
 template_dir="templates"
+[default.databases.postgres_db]
+url="postgres://questions:questions@db:5432/questions"

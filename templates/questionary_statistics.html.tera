@@ -1,0 +1,25 @@
+
+{% extends 'base' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">{{ title }}</h2>
+
+    {% for question in questions %}
+    <div class="card">
+        <div class="card-body">
+            <!-- Name Radio Buttons -->
+                <label for="{{question.id}}">{{question.question}}</label>
+                {% for answer in question.answers %}
+                <div class="custom-control custom-radio">
+                    <label class="custom-control-label" >{{answer.answer_text}} - {{answer.count / question.sum * 100 | round }}% - ({{answer.count}})</label>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}
